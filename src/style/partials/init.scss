@@ -1,0 +1,9 @@
+$primary-color : #64094c;
+$w : 100px;
+$h : 100px;
+
+div{
+  background-color: $primary-color;
+  width: $w;
+  height: $h;
+}
