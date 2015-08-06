@@ -4,9 +4,13 @@ var koa = require('koa');
 var path = require('path');
 var app = module.exports = koa();
 var co = require('co');
+var serveStatic = require('koa-serve-static');
+
+
 
 var proxy = require('./controllers/proxy');
 app.use(route.get('/api/proxy/:method', proxy.requestData));
-
+app.use(serveStatic('../web/build/'));
 app.listen(1337);
-console.log('listening on port 1337');
+
+
