@@ -9215,7 +9215,6 @@ return jQuery;
 /*
  * my scripts
  */
-console.log(1);
 var ajaxSetup = {
 
     },
@@ -9225,16 +9224,15 @@ var ajaxSetup = {
         }
     },
     dataContainer = {};
-debugger;
 $(function(){
     $('[data-bind-events]').each(function () {
         var $domElement = $(this),
             domElement = this,
             bindEvents = this.dataset.bindEvents.split(',');
         bindEvents.forEach(function (bEvent) {
-            var bindFunction = domElement.dataset['bind-' + bEvent].split(',');
+            var bindFunction = $domElement.data('bind-' + bEvent).split(',');
             bindFunction.forEach(function (bFunction) {
-                $domElement.bind(bEvent, Handlers[eval(bFunction)]);
+                $domElement.bind(bEvent, eval('Handlers.'+bFunction));
             });
         })
     });

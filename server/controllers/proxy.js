@@ -1,5 +1,9 @@
 var request = require('sync-request'),
-    models = require("../models");
+    models = require("../models")(),
+    http = require('http'),
+    url = require('url'),
+    parse = require('co-body');
+
 
 
 module.exports.requestData = function * (method) {
@@ -13,9 +17,22 @@ module.exports.requestData = function * (method) {
 */
 };
 
-module.exports.requestAirports = function * (method) {
-  /*  var airports = require('../models/airports.json').airports;
-
-    this.body = airports;*/
-    this.body = models();
+module.exports.requestAirports = function * () {
+    this.body = models.airports();
 }
+module.exports.requestAirportsParam = function * (param) {
+    var result = {};
+    models.airports().forEach(function (el) {
+        var value = el[param];
+        if (value !== undefined)
+            result[value] = result[value] !== undefined ?  result[value]+1 : 1;
+    });
+    this.body = result;
+}
+
+module.exports.requestAirportsFilter = function * () {
+    var queryData = url.parse(this.url, true).query;
+
+    this.body = queryData;
+}
+
