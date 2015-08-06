@@ -2,12 +2,14 @@
     height: 50px;
     width: 100%;
     &__container {
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
         height: 50px;
-        left: 0;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        min-width: $globalMinWidth;
+        z-index:1000;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         &-inner{
             border-bottom: 1px solid rgb(167, 154, 154);
             height: 100%;
@@ -24,6 +26,7 @@
     &__search {
         display: table-cell;
         width: 20%;
+        height: 41px;
         position: relative;
         &-box{
             width: 100%;

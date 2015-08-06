@@ -2,10 +2,10 @@ module.exports = function () {
     var Airports = require('../data/airports.json').airports;
     Airports = Airports.map(function (port) {
         return {
-            fs: port.fs,
+            code: port.fs,
             name: port.name,
             city: port.city,
-            countryName: port.countryName,
+            country: port.countryName,
             localTime: port.localTime
         };
     });
