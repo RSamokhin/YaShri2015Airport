@@ -124,7 +124,7 @@ gulp.task('openbrowser',function(){
 gulp.task('default',[
     'clean',
     'build',
-    'webserver',
-    'watch',
-    'openbrowser'
+    //'webserver',
+    'watch'
+    //'openbrowser'
 ]);

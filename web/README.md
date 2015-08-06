@@ -1,7 +1,6 @@
 # YaShri2015Airport clientside
 
-* sudo npm install
-* npm install bower -g
+* npm install
+* npm install gulp bower -g
 * bower i
-* sudo npm install -g gulp
 * gulp
