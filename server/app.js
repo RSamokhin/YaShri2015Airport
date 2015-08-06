@@ -5,10 +5,19 @@ var server= require('koa-static'),
     app = module.exports = koa(),
     co = require('co'),
     serveStatic = require('koa-serve-static'),
-    proxy = require('./controllers/proxy');
+    proxy = require('./controllers/proxy'),
+    models = require('./models');
 
-app.use(route.get('/api/proxy/:method', proxy.requestData));
+
+app.use(route.get('/api/proxy/airports', proxy.requestAirports));
 app.use(serveStatic('../web/build/'));
-app.listen(3333);
 
+if (!module.parent)
+{
+    var models = require("./models");
 
+    co(function * (){
+
+    app.listen(3333);
+});
+}
