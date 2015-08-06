@@ -1,16 +1,14 @@
-var server= require('koa-static');
-var route = require('koa-route');
-var koa = require('koa');
-var path = require('path');
-var app = module.exports = koa();
-var co = require('co');
-var serveStatic = require('koa-serve-static');
+var server= require('koa-static'),
+    route = require('koa-route'),
+    koa = require('koa'),
+    path = require('path'),
+    app = module.exports = koa(),
+    co = require('co'),
+    serveStatic = require('koa-serve-static'),
+    proxy = require('./controllers/proxy');
 
-
-
-var proxy = require('./controllers/proxy');
 app.use(route.get('/api/proxy/:method', proxy.requestData));
 app.use(serveStatic('../web/build/'));
-app.listen(1337);
+app.listen(3333);
 
 
