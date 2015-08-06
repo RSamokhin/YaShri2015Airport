@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = function () {
-    return 1
+    return 2
 }
 /*fs
     .readdirSync(__dirname)
