@@ -34,7 +34,7 @@ module.exports.requestAirportsFilter = function * (p) {
         airports = models.airports();
     Object.keys(queryData).forEach(function (param) {
         airports = airports.filter(function (el) {
-            return el[param] === queryData[param];
+            return ~el[param].indexOf(queryData[param]);
         });
     });
     if (typeof p === 'string') {
