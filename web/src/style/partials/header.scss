@@ -52,13 +52,34 @@
                 }
             }
         }
-        &-sudgessions {
+        &-suggestions {
             width: 100%;
             max-height: 300px;
-            height: 100px;
             border: 1px solid gray;
             box-sizing: border-box;
-            background-color: whitesmoke;
+            background-color: white;
+            overflow: auto;
+            position: absolute;
+            border-bottom: 1px solid gray;
+            &:not(.m-visible) {
+                display: none;
+            }
+        }
+        &__result{
+            input {
+                display: table-cell;
+                line-height: 50px;
+                box-sizing: border-box;
+                padding-left: 10px;
+            }
+            display: table-row;
+            &-info {
+                width: 80%;
+                cursor: pointer;
+            }
+            &-count {
+                width: 20%;
+            }
         }
         &-button {
             width: 32px;
@@ -94,9 +115,9 @@
                 &number {
                     background-image: url(../img/icons/icon-number.png);
                 }
-                &clear {
-                    background-image: url(../img/icons/icon-clear.png) !important;
-                }
+            }
+            &[data-contains], &.m-clear {
+                background-image: url(../img/icons/icon-clear.png) !important;
             }
         }
     }

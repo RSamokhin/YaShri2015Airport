@@ -34,17 +34,22 @@ module.exports.requestAirportsFilter = function * (p) {
         airports = models.airports();
     Object.keys(queryData).forEach(function (param) {
         airports = airports.filter(function (el) {
-            return ~el[param].indexOf(queryData[param]);
+            return el[param] !== undefined && ~el[param].toLowerCase().indexOf(queryData[param].toLowerCase());
         });
     });
     if (typeof p === 'string') {
         var result = {};
-        airports.forEach(function (el) {
+        airports.map(function (el) {
             var value = el[p];
             if (value !== undefined)
                 result[value] = result[value] !== undefined ?  result[value]+1 : 1;
         });
-        airports = result;
+        airports = Object.keys(result).map(function (key) {
+            return {
+                name: key,
+                count: result[key]
+            }
+        });
     }
     this.body = airports;
 };
