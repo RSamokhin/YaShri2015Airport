@@ -80,7 +80,7 @@ var ajaxSetup = {
                     $input.addClass('m-green');
                     $input.parent().addClass('m-filled');
                     $('.header__search-suggestions').removeClass('m-visible');
-
+                    $input.parent().next().children('.header__search-box').trigger('click')
                 }
             },
             acAirportSearch: function () {

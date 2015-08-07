@@ -6,7 +6,7 @@ module.exports = function () {
             name: port.name,
             city: port.city,
             country: port.countryName,
-            localTime: port.localTime
+            timeOffset: port.utcOffsetHours
         };
     });
     return Airports;
