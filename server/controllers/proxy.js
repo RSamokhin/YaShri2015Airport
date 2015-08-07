@@ -21,15 +21,6 @@ module.exports.requestAirport = function * (method, airport) {
 module.exports.requestAirports = function * () {
     this.body = models.airports();
 }
-module.exports.requestAirportsParam = function * (param) {
-    var result = {};
-    models.airports().forEach(function (el) {
-        var value = el[param];
-        if (value !== undefined)
-            result[value] = result[value] !== undefined ?  result[value]+1 : 1;
-    });
-    this.body = result;
-}
 
 module.exports.requestAirportsFilter = function * (p) {
     var queryData = url.parse(this.url, true).query,
@@ -43,7 +34,7 @@ module.exports.requestAirportsFilter = function * (p) {
         var result = {};
         airports.map(function (el) {
             var value = el[p];
-            if (value !== undefined)
+            if (value !== undefined || ~Object.keys(el).indexOf(p))
                 result[value] = result[value] !== undefined ?  result[value]+1 : 1;
         });
         airports = Object.keys(result).map(function (key) {
