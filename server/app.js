@@ -12,6 +12,7 @@ var server= require('koa-static'),
 app.use(route.get('/api/proxy/airports', proxy.requestAirports));
 app.use(route.get('/api/proxy/airports/filter/', proxy.requestAirportsFilter));
 app.use(route.get('/api/proxy/airports/filter/:param', proxy.requestAirportsFilter));
+app.use(route.get('/api/proxy/airport/:method/:airport', proxy.requestAirport));
 
 app.use(serveStatic('../web/build/'));
 

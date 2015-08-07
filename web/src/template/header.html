@@ -12,50 +12,58 @@
                     <div class="header__airport-container">
                         <div class="header__search">
                             <input class="header__search-box"
-                                   data-bind-keyup="iconsSwitch"
+                                   data-bind-keyup="acAirportSearch"
+                                   data-bind-click="acAirportSearch"
                                    placeholder="Country"
                                    data-filter="country"/>
                             <div class="header__search-button"
                                  data-bind-click="listAirportSuggestions">
                             </div>
                             <div class="header__search-clear m-country"
-                                 data-bind-click="clearInput"></div>
+                                 data-bind-click="clearInput"
+                                 data-weight="1"></div>
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">
                             <input class="header__search-box"
-                                   data-bind-keyup="iconsSwitch"
+                                   data-bind-keyup="acAirportSearch"
+                                   data-bind-click="acAirportSearch"
                                    placeholder="City"
                                    data-filter="city"/>
                             <div class="header__search-button"
                                  data-bind-click="listAirportSuggestions">
                             </div>
                             <div class="header__search-clear m-town"
-                                 data-bind-click="clearInput"></div>
+                                 data-bind-click="clearInput"
+                                 data-weight="2"></div>
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">
                             <input class="header__search-box"
-                                   data-bind-keyup="iconsSwitch"
+                                   data-bind-keyup="acAirportSearch"
+                                   data-bind-click="acAirportSearch"
                                    placeholder="Airport"
                                    data-filter="name"/>
                             <div class="header__search-button"
                                  data-bind-click="listAirportSuggestions">
                             </div>
                             <div class="header__search-clear m-airport"
-                                 data-bind-click="clearInput"></div>
+                                 data-bind-click="clearInput"
+                                 data-weight="3"></div>
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">
                             <input class="header__search-box"
-                                   data-bind-keyup="iconsSwitch"
+                                   data-bind-keyup="acAirportSearch"
+                                   data-bind-click="acAirportSearch"
                                    placeholder="Code"
                                    data-filter="code"/>
                             <div class="header__search-button"
                                  data-bind-click="listAirportSuggestions">
                             </div>
                             <div class="header__search-clear m-number"
-                                 data-bind-click="clearInput"></div>
+                                 data-bind-click="clearInput"
+                                 data-weight="3"></div>
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">

@@ -9724,7 +9724,11 @@ var ajaxSetup = {
                         type: 'get',
                         dataType: 'JSON',
                         data: query,
+                        beforeSend: function () {
+                            $input.addClass('m-load');
+                        },
                         success: function (data) {
+                            $input.removeClass('m-load');
                             if (data.length) {
                                 if (data.length > 300) {
                                     data = {
@@ -9736,8 +9740,10 @@ var ajaxSetup = {
                                 $('#tAirportSearchResult').tmpl(data).appendTo($suggestions);
                                 if (data.length === 1 && data[0].count > 0) {
                                     $suggestions.find('.header__search__result-info').trigger('click');
+                                    $input.addClass('m-green');
                                 } else {
                                     $suggestions.addClass('m-visible');
+                                    $input.removeClass('m-green');
 
                                 }
                             }
@@ -9749,8 +9755,22 @@ var ajaxSetup = {
                 }
             },
             clearInput: function () {
+                var weight = $(this).data('weight'),
+                    self = this,
+                    $allSuggestions=$('.header__search-suggestions');
+                $allSuggestions.removeClass('m-visible');
                 $(this).parent().find('input').val('');
-                Handlers.keyup.iconsSwitch.call(this);
+                $(this).parent().removeClass('m-filled');
+                $('.header__search-box').each(function () {
+                    var el = this;
+                    if ($(el).next().next().data('weight') >= weight) {
+                        $(el).val('');
+                        $(el).removeClass('m-green');
+                        $(el).parent().removeClass('m-filled');
+
+                    }
+                });
+
             },
             continueAirportSearch: function () {
                 var $inputExample = $(this),
@@ -9758,24 +9778,25 @@ var ajaxSetup = {
                     count = $inputExample.next().val();
                 if (count !== '0') {
                     $input.val($inputExample.val());
+                    $input.addClass('m-green');
+                    $input.parent().addClass('m-filled');
                     $('.header__search-suggestions').removeClass('m-visible');
-                    //$input.parent().next().children('.header__search-box:not(.m-button)').next('.header__search-button').trigger('click');
-                    //$input.trigger('keyup');
+
                 }
+            },
+            acAirportSearch: function () {
+                Handlers.keyup.acAirportSearch.call(this);
             }
         },
         keyup: {
-            iconsSwitch: function () {
+            acAirportSearch: function () {
                 var $input = $(this).parent().children('input'),
                     $allSuggestions=$('.header__search-suggestions');
                 $allSuggestions.removeClass('m-visible');
                 if ($input.val().length) {
-                    $input.next().next().addClass('m-clear');
-                    $input.attr('data-contains',$input.val());
-                    $input
+                    $input.parent().addClass('m-filled');
                 } else {
-                    $input.next().next().removeClass('m-clear');
-                    $input.attr('data-contains','').removeAttr('contains');
+                    $input.parent().removeClass('m-filled');
                 }
                 $input.next().trigger('click');
             }
