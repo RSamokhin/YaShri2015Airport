@@ -67,8 +67,12 @@
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">
-                            <input class="header__search-box m-button" value="Show" readonly/>
+                            <input class="header__search-box m-button" data-bind-click="showResults" value="Show" readonly/>
                         </div>
+                    </div>
+                    <div class="header__time-container m-hidden">
+                        <div class="header__time-value" id="airportTime" data-time-offset="0">time</div>
+                        <div class="header__time-label">Airport time: </div>
                     </div>
                 </div>
             </div>

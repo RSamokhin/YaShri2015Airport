@@ -85,6 +85,21 @@ var ajaxSetup = {
             },
             acAirportSearch: function () {
                 Handlers.keyup.acAirportSearch.call(this);
+            },
+            showResults: function () {
+                var $timeContainer = $('.header__time-container');
+                if ($('.header__search-box.m-green').length === 4) {
+                    $timeContainer.removeClass('m-hidden');
+                } else {
+                    $('.header__search-box:not(.m-green)').each(function () {
+                        if (!$(this).hasClass('m-button')) {
+                            $(this).animate({backgroundColor: 'red'}, 'slow').animate({backgroundColor: 'white'}, 'slow').queue(function () {
+                                $(this).removeAttr('style');
+                            });
+                        }
+                    });
+                    $('.header__search-box:not(.m-green)').first().trigger('click');
+                }
             }
         },
         keyup: {
@@ -106,8 +121,9 @@ $(function(){
     Object.keys(Handlers).forEach(function (eve) {
         Object.keys(Handlers[eve]).forEach(function (fun) {
             $(document).on(eve, '[data-bind-'+eve+'*="'+fun+'"]', Handlers[eve][fun]);
-        })
+        });
     });
+    digitalWatch();
 
     /*$('[data-bind-events]').each(function () {
         var $domElement = $(this),
@@ -122,3 +138,15 @@ $(function(){
     });*/
 });
 
+function digitalWatch() {
+    var date = new Date();
+    date.getUTCDate()
+    var hours = date.getUTCHours();
+    var minutes = date.getUTCMinutes();
+    var seconds = date.getUTCSeconds();
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
+    if (seconds < 10) seconds = "0" + seconds;
+    document.getElementById("airportTime").innerHTML = hours + ":" + minutes + ":" + seconds;
+    setTimeout("digitalWatch()", 1000);
+}

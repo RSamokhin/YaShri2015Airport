@@ -10,6 +10,7 @@
   "dependencies":{
       "normalize.css":"*",
       "jquery":"2.*",
-      "jquery-tmpl": "*"
+      "jquery-tmpl": "*",
+      "jquery-color": "*"
   }
 }
