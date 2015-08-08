@@ -11333,6 +11333,7 @@ var ajaxSetup = {
                                         }
 
                                     }
+                                    $suggestions.html('');
                                     $('#tAirportSearchResult').tmpl(data).appendTo($suggestions);
                                     if (data.length === 1 && data[0].count > 0) {
                                         $suggestions.find('.header__search__result-info').trigger('click');
