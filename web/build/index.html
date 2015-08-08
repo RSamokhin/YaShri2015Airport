@@ -7,11 +7,14 @@
     </head>
     <body>
         <section class="header">
+            <div class="header__bg"></div>
             <div class="header__container">
                 <div class="header__container-inner">
                     <div class="header__airport-container">
                         <div class="header__search">
-                            <input class="header__search-box"
+                            <input autofocus1
+                                   tabindex="1"
+                                   class="header__search-box"
                                    data-bind-keyup="acAirportSearch"
                                    data-bind-click="acAirportSearch"
                                    placeholder="Country"
@@ -25,7 +28,8 @@
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">
-                            <input class="header__search-box"
+                            <input tabindex="2"
+                                   class="header__search-box"
                                    data-bind-keyup="acAirportSearch"
                                    data-bind-click="acAirportSearch"
                                    placeholder="City"
@@ -40,6 +44,7 @@
                         </div>
                         <div class="header__search">
                             <input class="header__search-box"
+                                   tabindex="3"
                                    data-bind-keyup="acAirportSearch"
                                    data-bind-click="acAirportSearch"
                                    placeholder="Airport"
@@ -54,6 +59,7 @@
                         </div>
                         <div class="header__search">
                             <input class="header__search-box"
+                                   tabindex="4"
                                    data-bind-keyup="acAirportSearch"
                                    data-bind-click="acAirportSearch"
                                    placeholder="Code"
@@ -67,7 +73,11 @@
                             <div class="header__search-suggestions"></div>
                         </div>
                         <div class="header__search">
-                            <input class="header__search-box m-button" data-bind-click="showResults" value="Show" readonly/>
+                            <input class="header__search-box m-button"
+                                   tabindex="5"
+                                   data-bind-click="showResults"
+                                   value="Show"
+                                   readonly/>
                         </div>
                     </div>
                     <div class="header__time-container m-hidden">
@@ -78,7 +88,26 @@
             </div>
         </section>
 <section class="content">
+    <table border="1" class='content__table'>
+        <thead class="content__table-head">
+            <th>Type</th>
+            <th>Flight</th>
+            <th>Airlines</th>
+            <th>Logo</th>
+            <th>Plane Type</th>
+            <th>Destination</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Status</th>
+            <th>Comment</th>
+        </thead>
 
+        </thead>
+        <tbody id="contentRow">
+
+
+        </tbody>
+    </table>
 </section>
         <section class="footer">
 
@@ -86,10 +115,25 @@
 
         <script src="js/main.js"></script>
         <script id="tAirportSearchResult" type="text/x-jquery-tmpl">
-                <div class="header__search__result">
-                    <input class="header__search__result-info"  data-bind-click="continueAirportSearch" value="${name}" readonly/>
-                    <input class="header__search__result-count"  value="${count}" readonly/>
-                </div>
-            </script>
+            <div class="header__search__result">
+                <input class="header__search__result-info"  data-bind-click="continueAirportSearch" value="${name}" readonly/>
+                <input class="header__search__result-count"  value="${count}" readonly/>
+            </div>
+        </script>
+        
+        <script id="flightRow" type="text/x-jquery-tmpl">
+            <tr class="content__table-tr">
+               <td class="content__table-td">${flight}</td>
+               <td class="content__table-td">${type}</td>
+               <td class="content__table-td">${airlines}</td>
+               <td class="content__table-td"><div class="content__table-logo" style="background: url(${logo})"></div></td>
+               <td class="content__table-td">${planeType}</td>
+               <td class="content__table-td">${destination}</td>
+               <td class="content__table-td">${departure}</td>
+               <td class="content__table-td">${arrival}</td>
+               <td class="content__table-td">${status}</td>
+               <td class="content__table-td">${comment}</td>
+            </tr>
+        </script>
         </body>
 </html>

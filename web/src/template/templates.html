@@ -1,6 +1,21 @@
 <script id="tAirportSearchResult" type="text/x-jquery-tmpl">
-        <div class="header__search__result">
-            <input class="header__search__result-info"  data-bind-click="continueAirportSearch" value="${name}" readonly/>
-            <input class="header__search__result-count"  value="${count}" readonly/>
-        </div>
-    </script>
+    <div class="header__search__result">
+        <input class="header__search__result-info"  data-bind-click="continueAirportSearch" value="${name}" readonly/>
+        <input class="header__search__result-count"  value="${count}" readonly/>
+    </div>
+</script>
+
+<script id="flightRow" type="text/x-jquery-tmpl">
+    <tr class="content__table-tr">
+       <td class="content__table-td">${flight}</td>
+       <td class="content__table-td">${type}</td>
+       <td class="content__table-td">${airlines}</td>
+       <td class="content__table-td"><div class="content__table-logo" style="background: url(${logo})"></div></td>
+       <td class="content__table-td">${planeType}</td>
+       <td class="content__table-td">${destination}</td>
+       <td class="content__table-td">${departure}</td>
+       <td class="content__table-td">${arrival}</td>
+       <td class="content__table-td">${status}</td>
+       <td class="content__table-td">${comment}</td>
+    </tr>
+</script>

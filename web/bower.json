@@ -11,6 +11,8 @@
       "normalize.css":"*",
       "jquery":"2.*",
       "jquery-tmpl": "*",
-      "jquery-color": "*"
+      "jquery-color": "*",
+      "floatThead": "*",
+      "dynatable": "*"
   }
 }
