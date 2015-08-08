@@ -1,7 +1,6 @@
 .content {
     width: 100%;
     margin-top: 20px;
-    position: fixed;
     overflow-y: auto;
     height: inherit;
     & > div {
@@ -25,7 +24,7 @@
         }
         &-head {
             position: absolute;
-            top: 0;
+            top: 70px;
             width: 94%;
             background-color: #006a72;
             color: #fff;
