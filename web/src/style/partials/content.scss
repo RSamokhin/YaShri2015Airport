@@ -1,10 +1,11 @@
 .content {
     width: 100%;
-    margin-top: 20px;
     overflow-y: auto;
     height: inherit;
+    position: absolute;
+    top: 0px;
     & > div {
-        padding-top: 50px;
+        padding-top: 120px;
     }
     &__table{
         width: 94%;
