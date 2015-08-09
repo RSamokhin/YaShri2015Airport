@@ -27,7 +27,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
         var result = [],
             res = JSON.parse(request('GET', url).getBody('utf8')),
             flightStatuses = res.flightStatuses,
-            airlines = res.appendix.airlines,
+            airlines = models.airlines(),
             airports = res.appendix.airports,
             equipments = res.appendix.equipments;
         flightStatuses.forEach(function (flight) {
@@ -39,6 +39,9 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                 })[0],
                 rflight = {
                     flight: flight.carrierFsCode + flight.flightNumber,
+                    codeshares: flight.codeshares ? flight.codeshares.map(function (share) {
+                        return share.fsCode + share.flightNumber;
+                    }) : [],
                     carrierFsCode: flight.carrierFsCode,
                     carrier: airlines.filter(function (carrier) {
                         return carrier.fs === flight.carrierFsCode
@@ -63,15 +66,18 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     departureTerminal: flight.airportResources ? flight.airportResources.departureTerminal : null,
                     departureGate: flight.airportResources ? flight.airportResources.departureGate : null
                 };
+            rflight.codeshares.push(flight.carrierFsCode + flight.flightNumber);
             result.push(rflight);
             if (flight.codeshares) {
-                var cFlight = JSON.parse(JSON.stringify(rflight));
-                cFlight.flight = flight.codeshares.fsCode + flight.codeshares.flightNumber;
-                cFlight.carrierFsCode = flight.codeshares.fsCode;
-                cFlight.carrier = airlines.filter(function (carrier) {
-                    return 1;//carrier.fs === flight.codeshares.fsCode;
-                })[0].name;
-                result.push(cFlight);
+                flight.codeshares.forEach(function (share) {
+                    var cFlight = JSON.parse(JSON.stringify(rflight));
+                    cFlight.flight = share.fsCode + share.flightNumber;
+                    cFlight.carrierFsCode = share.fsCode;
+                    cFlight.carrier = airlines.filter(function (carrier) {
+                        return carrier.fs === share.fsCode;
+                    })[0].name;
+                    result.push(cFlight);
+                });
             }
         });
         return result;
