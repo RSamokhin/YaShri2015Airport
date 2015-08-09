@@ -141,7 +141,6 @@ var ajaxSetup = {
             },
             showMenu: function () {
                 $(document.body).removeClass('m-scrolled')
-
             }
         },
         keyup: {
@@ -164,7 +163,6 @@ $(function(){
     Object.keys(Handlers).forEach(function (eve) {
         Object.keys(Handlers[eve]).forEach(function (fun) {
             $(document).on(eve, '[data-bind-'+eve+'*="'+fun+'"]', Handlers[eve][fun]);
-            console.log(eve == 'scroll')
         });
     });
     digitalWatch();

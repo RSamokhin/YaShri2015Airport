@@ -123,11 +123,13 @@
             }
             display: table-row;
             &-info {
-                width: 80%;
+                width: 79%;
                 cursor: pointer;
+                float: left;
             }
             &-count {
-                width: 20%;
+                width: 19%;
+                float: right;
             }
         }
         &-button {
