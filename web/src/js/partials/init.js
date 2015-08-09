@@ -18,6 +18,25 @@ var ajaxSetup = {
         }
     },
     Handlers = {
+        mouseenter: {
+            hoverTableColumn:function () {
+                var $td = $(this),
+                    n = parseInt($(this).index()) + 1;
+                $('.content__table-tr td:nth-child(' + n + ')').addClass('m-highlighted');
+            }
+        },
+        mouseleave: {
+            hoverLeaveTableColumn: function () {
+                var $td = $(this),
+                    n = parseInt($(this).index()) + 1;
+                $('.content__table-tr td:nth-child(' + n + ')').removeClass('m-highlighted');
+            }
+        },
+        scroll: {
+            tableScroll: function () {
+               $(document.body).addClass('m-scrolled')
+            }
+        },
         click: {
             listAirportSuggestions: function () {
                 var $input = $(this).parent().find('input'),
@@ -119,6 +138,10 @@ var ajaxSetup = {
                     });
                     $('.header__search-box:not(.m-green)').first().trigger('click');
                 }
+            },
+            showMenu: function () {
+                $(document.body).removeClass('m-scrolled')
+
             }
         },
         keyup: {
@@ -141,25 +164,19 @@ $(function(){
     Object.keys(Handlers).forEach(function (eve) {
         Object.keys(Handlers[eve]).forEach(function (fun) {
             $(document).on(eve, '[data-bind-'+eve+'*="'+fun+'"]', Handlers[eve][fun]);
+            console.log(eve == 'scroll')
         });
     });
     digitalWatch();
-
-   /* $('table').floatThead({
-        scrollingTop: 60
+    $('section.content').on('scroll' ,function(){
+        Handlers.scroll.tableScroll();
     });
-    //  alignmentDebugger($('table'))
-    var useAbs = true;
-    $("#makeFixed").on("click", function(e){
-        e.preventDefault();
-        useAbs = !useAbs;
-        $('table').floatThead('destroy').floatThead({
-            scrollingTop: pageTop,
-            useAbsolutePositioning: useAbs
-        });
-        $(this).text("Re-initialize plugin with "+(useAbs ? "fixed" : "absolute") +" positioning");
-        $("#posType").text("position: "+(useAbs ? "absolute" : "fixed"))
-    })*/
+
+
+
+
+
+
 
 
     var flights = [

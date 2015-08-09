@@ -4,8 +4,10 @@
     height: inherit;
     position: absolute;
     top: 0px;
+    z-index: 2;
     & > div {
         padding-top: 120px;
+        overflow: scroll;
     }
     &__table{
         width: 94%;
@@ -44,13 +46,40 @@
             &:nth-child(odd) {
                 background-color: lavender;
             }
-            &:hover {
+            &:hover, & .m-highlighted{
                 background-color: honeydew;
             }
         }
         &-td {
             padding-left: 20px;
             border-color: grey;
+            &:hover {
+                background-color: lightgreen;
+            }
+            & div{
+                height: 50px;
+                width: 100%;
+                overflow: hidden;
+            }
         }
+    }
+}
+body {
+    &.m-scrolled {
+        & .header__container, .header__bg {
+            display: none;
+            height: 0px;
+        }
+        & .content__table-head {
+            top: 0;
+        }
+        & .content > div{
+            padding-top: 50px;
+        }
+    }
+}
+@media (max-width: 900px) {
+    td:nth-child(3), th:nth-child(3) {
+        display: none;
     }
 }
