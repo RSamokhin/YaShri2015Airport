@@ -109,4 +109,3 @@ module.exports.requestAirportsFilter = function * (p) {
     }
     this.body = airports;
 };
-
