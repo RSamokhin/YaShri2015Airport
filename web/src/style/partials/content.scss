@@ -13,15 +13,50 @@
         cursor: pointer;
         background-position: center;
         background-repeat: no-repeat;
+        &-container {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            height: 56px;
+            margin: auto;
+            display: inline-block;
+            z-index: 4;
+            border: 1px solid gray;
+            border-radius: 4px;
+            padding: 5px;
+            &.m-hidden {
+                display:none;
+            }
+        }
+        &-input {
+            line-height: 50px;
+            display: inline;
+            width: 240px;
+            float: left;
+            padding-left: 5px;
+        }
+        &-button {
+            line-height: 50px;
+            float: right;
+            width: 44px;
+            background-image: url(../img/icons/icon-search.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
         &:hover {
             opacity: 0.7;
         }
         &.m-arrivals {
-            top: 122px;
+            top: 152px;
             background-image: url(../img/icons/icon-arrival.png);
         }
         &.m-deparures {
-            top: 202px;
+            top: 232px;
             background-image: url(../img/icons/icon-departure.png);
         }
         &.m-filtered {
@@ -32,12 +67,16 @@
             right: 0;
         }
         &.m-showUp{
-            top: 122px;
+            top: 151px;
             background-image: url(../img/icons/icon-showUp.png);
         }
         &.m-showDown{
-            top: 202px;
+            top: 231px;
             background-image: url(../img/icons/icon-showDown.png);
+        }
+        &.m-filter {
+            top: 71px;
+            background-image: url(../img/icons/icon-filter.png);
         }
     }
     &.m-load {
@@ -111,7 +150,7 @@
             }
             &:nth-child(10) {
                 width: 1%;
-                min-width: 49px;
+                min-width: 69px;
             }
             &:nth-child(11) {
                 width: 1%;

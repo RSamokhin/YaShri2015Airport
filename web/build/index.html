@@ -93,6 +93,11 @@
     <div class="content__filter m-deparures" data-bind-click="filterTableByType" data-filter-param="departure"></div>
     <div class="content__filter m-showUp m-right" data-bind-click="showNext"></div>
     <div class="content__filter m-showDown m-right" data-bind-click="showPrev"></div>
+    <div class="content__filter m-filter m-right" data-bind-click="filterResults"></div>
+    <div class="content__filter-container m-hidden">
+        <input class="content__filter-input" placeholder="Your search"/>
+        <input readonly class="content__filter-button"/>
+    </div>
     <div class="content__table-container">
         <table border="1" class='content__table'>
             <col width="50">
@@ -104,7 +109,7 @@
             <col width="120">
             <col width="40">
             <col width="100">
-            <col width="50">
+            <col width="70">
             <col width="50">
             <col width="150">
 

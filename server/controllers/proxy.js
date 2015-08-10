@@ -64,7 +64,38 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                         var tdate = new Date(flight.departureDate.dateLocal);
                         return (tdate.getUTCHours() > 9 ? tdate.getUTCHours() : '0' + tdate.getUTCHours().toString())+':'+(tdate.getUTCMinutes() > 9 ? tdate.getUTCMinutes() :  '0'+ tdate.getUTCMinutes().toString());
                     })(),
-                    status: flight.status,
+                    status: (function () {
+                        var status = '';
+                        switch (flight.status) {
+                            case 'A':
+                                return 'Active';
+                                break;
+                            case 'C':
+                                return 'Canceled';
+                                break;
+                            case 'D':
+                                return 'Diverted';
+                                break;
+                            case 'DN':
+                                return 'Data source needed';
+                                break;
+                            case 'L':
+                                return 'Landed';
+                                break;
+                            case 'NO':
+                                return 'Not Operational';
+                                break;
+                            case 'R':
+                                return 'Redirected';
+                                break;
+                            case 'S':
+                                return 'Scheduled';
+                                break;
+                            case 'U':
+                                return 'Unknown';
+                                break;
+                        }
+                    }) (),
                     flightEquipmentCode: flight.flightEquipment ? flight.flightEquipment.scheduledEquipmentIataCode : '-',
                     flightEquipment: (function () {
                         var eq = flight.flightEquipment ? equipments.filter(function (equipement) {
@@ -75,7 +106,10 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     tailNumber: flight.flightEquipment ? flight.flightEquipment.tailNumber : '-',
                     arrivalTerminal: flight.airportResources ? flight.airportResources.arrivalTerminal : null,
                     departureTerminal: flight.airportResources ? flight.airportResources.departureTerminal : null,
-                    departureGate: flight.airportResources ? flight.airportResources.departureGate : null
+                    departureGate: flight.airportResources ? flight.airportResources.departureGate : null,
+                    delays: {
+
+                    }
                 };
             rflight.codeshares.push(flight.carrierFsCode + flight.flightNumber);
             result.push(rflight);
