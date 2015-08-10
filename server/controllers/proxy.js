@@ -57,6 +57,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     arrivalAirportName: arrivalAirport.name,
                     departureDate: flight.departureDate.dateLocal,
                     arrivalDate: flight.arrivalDate.dateLocal,
+                    time: (airport === flight.arrivalAirportFsCode) ? (new Date(flight.arrivalDate.dateLocal)).toDateString().split(' ')[0] : (new Date( flight.departureDate.dateLocal)).toDateString().split(' ')[0],
                     status: flight.status,
                     flightEquipmentCode: flight.flightEquipment.scheduledEquipmentIataCode,
                     flightEquipment: equipments.filter(function (equipement) {
