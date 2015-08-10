@@ -14,7 +14,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
             year + '/' +
             month + '/' +
             day  + '/' +
-            hour + '/?appId=01e8e01e&appKey=1d0c14aeebb6875e849b703c8863c724&utc=false&numHours=5',
+            hour + '/?appId=01e8e01e&appKey=1d0c14aeebb6875e849b703c8863c724&utc=false&numHours=6',
         urlArr = 'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/' +
             airport + '/' +
             'arr' + '/' +
@@ -25,7 +25,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
         result = [];
     function getFormatedAirportData (url) {
         var result = [],
-            res = ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),// JSON.parse(request('GET', url).getBody('utf8')),
+            res = JSON.parse(request('GET', url).getBody('utf8')),// ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),
             flightStatuses = res.flightStatuses,
             airlines = models.airlines(),
             airports = res.appendix.airports,
@@ -57,13 +57,19 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     arrivalAirportName: arrivalAirport.name,
                     departureDate: flight.departureDate.dateLocal,
                     arrivalDate: flight.arrivalDate.dateLocal,
-                    time: (airport === flight.arrivalAirportFsCode) ? (new Date(flight.arrivalDate.dateLocal)).toDateString().split(' ')[0] : (new Date( flight.departureDate.dateLocal)).toDateString().split(' ')[0],
+                    time: (airport === flight.arrivalAirportFsCode) ? (function () {
+                        var tdate = new Date(flight.arrivalDate.dateLocal);
+                        return (tdate.getUTCHours() > 9 ? tdate.getUTCHours() : '0' + tdate.getUTCHours())+':'+(tdate.getUTCMinutes() > 9 ? tdate.getUTCMinutes() : '0' + tdate.getUTCMinutes());
+                    })(): (function () {
+                        var tdate = new Date(flight.departureDate.dateLocal);
+                        return tdate.getUTCHours()+':'+tdate.getUTCMinutes();
+                    })(),
                     status: flight.status,
-                    flightEquipmentCode: flight.flightEquipment.scheduledEquipmentIataCode,
-                    flightEquipment: equipments.filter(function (equipement) {
+                    flightEquipmentCode: flight.flightEquipment ? flight.flightEquipment.scheduledEquipmentIataCode : '-',
+                    flightEquipment:  flight.flightEquipment ? equipments.filter(function (equipement) {
                         return equipement.iata === flight.flightEquipment.scheduledEquipmentIataCode
-                    })[0].name,
-                    tailNumber: flight.flightEquipment.tailNumber,
+                    })[0].name : '-',
+                    tailNumber: flight.flightEquipment ? flight.flightEquipment.tailNumber : '-',
                     arrivalTerminal: flight.airportResources ? flight.airportResources.arrivalTerminal : null,
                     departureTerminal: flight.airportResources ? flight.airportResources.departureTerminal : null,
                     departureGate: flight.airportResources ? flight.airportResources.departureGate : null

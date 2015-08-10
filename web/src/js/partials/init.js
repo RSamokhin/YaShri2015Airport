@@ -26,7 +26,7 @@ window.ajaxSetup = {
                 day = mydate.getUTCDate();
                 hour = mydate.getUTCHours();
             }
-            var airport = $('.header__search-box').eq(3).val();
+            var airport = $('.header__search-box').eq(3).val(),
             ajaxSetup = {
                 url: '/api/proxy/airport/' + airport +'/' + year + '/' + month + '/' + day +'/' + hour + '/',
                 type: 'get',
@@ -93,7 +93,7 @@ window.Handlers = {
                                 }
                             }
                         },
-                        ajaxSetup.getAirportsParamsSearch(p)
+                        window.ajaxSetup.getAirportsParamsSearch(p)
                     ));
                 } else {
                     $suggestions.removeClass('m-visible');
@@ -149,7 +149,8 @@ window.Handlers = {
                                             $('.content').show().addClass('m-load');
                                         },
                                         success: function (data) {
-                                            $('.content').show().removeClass('m-load');
+                                            $('#contentRow').children().remove();
+                                            $('.content').removeClass('m-hidden').removeClass('m-load');
                                             $('#flightRow').tmpl(data).appendTo('#contentRow');
                                         }
                                     },
