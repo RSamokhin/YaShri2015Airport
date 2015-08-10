@@ -5,15 +5,46 @@
     position: absolute;
     top: 0px;
     z-index: 2;
+    &__filter {
+        width: 3%;
+        height: 70px;
+        position: fixed;
+        background-color: lightgreen;
+        cursor: pointer;
+        background-position: center;
+        background-repeat: no-repeat;
+        &:hover {
+            opacity: 0.7;
+        }
+        &.m-arrivals {
+            top: 122px;
+            background-image: url(../img/icons/icon-arrival.png);
+        }
+        &.m-deparures {
+            top: 202px;
+            background-image: url(../img/icons/icon-departure.png);
+        }
+        &.m-filtered {
+            background-color: lightcoral;
+        }
+        &.m-right {
+            position: fixed;
+            right: 0;
+        }
+        &.m-showUp{
+            top: 122px;
+            background-image: url(../img/icons/icon-showUp.png);
+        }
+        &.m-showDown{
+            top: 202px;
+            background-image: url(../img/icons/icon-showDown.png);
+        }
+    }
     &.m-load {
         background-color: lightgray;
     }
     &.m-hidden {
         display: none;
-    }
-    & > div {
-        padding-top: 120px;
-        overflow: scroll;
     }
     &__table{
         width: 94%;
@@ -21,6 +52,10 @@
         margin-left: 3%;
         height: 100%;
         cursor: pointer;
+        &-container {
+            padding-top: 120px;
+            overflow: scroll;
+        }
         &-head {
             position: fixed;
             top: 70px;
@@ -148,7 +183,7 @@ body {
         & .content__table-head {
             top: 0;
         }
-        & .content > div{
+        & .content__table-container{
             padding-top: 50px;
         }
     }

@@ -10388,6 +10388,7 @@ window.ajaxSetup = {
                 month = mydate.getUTCMonth()+1;
                 day = mydate.getUTCDate();
                 hour = mydate.getUTCHours();
+                window.filterDate = new Date(mydate);
             }
             var airport = $('.header__search-box').eq(3).val(),
             ajaxSetup = {
@@ -10419,6 +10420,12 @@ window.Handlers = {
             }
         },
         click: {
+            filterTableByType: function () {
+                var $button = $(this),
+                    param = $button.data('filter-param');
+                $button.toggleClass('m-filtered');
+                $('.content__table').find('.m-'+param).closest('.content__table-tr').toggle()
+            },
             listAirportSuggestions: function () {
                 var $input = $(this).parent().find('input'),
                     p = $input.data('filter'),
@@ -10463,6 +10470,24 @@ window.Handlers = {
                     $suggestions.html('');
                 }
             },
+            showNext: function () {
+                window.filterDate.setUTCHours( window.filterDate.getUTCHours() + 6);
+                window.Handlers.click.showResults(
+                    window.filterDate.getUTCFullYear(),
+                    window.filterDate.getUTCMonth()+1,
+                    window.filterDate.getUTCDate(),
+                    window.filterDate.getUTCHours()
+                );
+            },
+            showPrev: function () {
+                window.filterDate.setUTCHours( window.filterDate.getUTCHours() - 6);
+                window.Handlers.click.showResults(
+                    window.filterDate.getUTCFullYear(),
+                    window.filterDate.getUTCMonth()+1,
+                    window.filterDate.getUTCDate(),
+                    window.filterDate.getUTCHours()
+                );
+            },
             clearInput: function () {
                 var weight = $(this).data('weight'),
                     self = this,
@@ -10494,9 +10519,9 @@ window.Handlers = {
                 }
             },
             acAirportSearch: function () {
-                Handlers.keyup.acAirportSearch.call(this);
+                window.Handlers.keyup.acAirportSearch.call(this);
             },
-            showResults: function () {
+            showResults: function (year, month, day, hour) {
                 var $timeContainer = $('.header__time-container');
                 if ($('.header__search-box.m-green').length === 4) {
                     $timeContainer.removeClass('m-hidden');
@@ -10517,7 +10542,7 @@ window.Handlers = {
                                             $('#flightRow').tmpl(data).appendTo('#contentRow');
                                         }
                                     },
-                                    window.ajaxSetup.getFlightsInfo()
+                                    window.ajaxSetup.getFlightsInfo(year, month, day, hour)
                                 ));
                             }
                         },
@@ -10554,14 +10579,14 @@ window.Handlers = {
         }
     };
 $(function(){
-    Object.keys(Handlers).forEach(function (eve) {
-        Object.keys(Handlers[eve]).forEach(function (fun) {
-            $(document).on(eve, '[data-bind-'+eve+'*="'+fun+'"]', Handlers[eve][fun]);
+    Object.keys(window.Handlers).forEach(function (eve) {
+        Object.keys(window.Handlers[eve]).forEach(function (fun) {
+            $(document).on(eve, '[data-bind-'+eve+'*="'+fun+'"]', window.Handlers[eve][fun]);
         });
     });
     digitalWatch();
     $('section.content').on('scroll' ,function(){
-        Handlers.scroll.tableScroll();
+        window.Handlers.scroll.tableScroll();
     });
 });
 

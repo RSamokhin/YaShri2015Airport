@@ -25,7 +25,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
         result = [];
     function getFormatedAirportData (url) {
         var result = [],
-            res = JSON.parse(request('GET', url).getBody('utf8')),// ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),
+            res = JSON.parse(request('GET', url).getBody('utf8')), //~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),
             flightStatuses = res.flightStatuses,
             airlines = models.airlines(),
             airports = res.appendix.airports,
@@ -66,9 +66,12 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     })(),
                     status: flight.status,
                     flightEquipmentCode: flight.flightEquipment ? flight.flightEquipment.scheduledEquipmentIataCode : '-',
-                    flightEquipment:  flight.flightEquipment ? equipments.filter(function (equipement) {
-                        return equipement.iata === flight.flightEquipment.scheduledEquipmentIataCode
-                    })[0].name : '-',
+                    flightEquipment: (function () {
+                        var eq = flight.flightEquipment ? equipments.filter(function (equipement) {
+                            return equipement.iata === flight.flightEquipment.scheduledEquipmentIataCode
+                        }) : [];
+                        return (eq.length > 0) ? eq[0].name : '-';
+                    }) (),
                     tailNumber: flight.flightEquipment ? flight.flightEquipment.tailNumber : '-',
                     arrivalTerminal: flight.airportResources ? flight.airportResources.arrivalTerminal : null,
                     departureTerminal: flight.airportResources ? flight.airportResources.departureTerminal : null,
