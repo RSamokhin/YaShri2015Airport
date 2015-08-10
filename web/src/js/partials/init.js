@@ -17,12 +17,14 @@ window.ajaxSetup = {
             return ajaxSetup;
         },
         getFlightsInfo: function (year, month, day, hour) {
-            //app.use(route.get('/api/proxy/airport/:airport/:year/:month/:day/:hour/', proxy.requestAirport));
+            window.digitalWatch();
             if (!(year && month && day && hour !== undefined)) {
-                year = window.airportDate.year;
-                month = window.airportDate.month;
-                day = window.airportDate.day;
-                hour = window.airportDate.hour;
+                var mydate = new Date(window.airportDefaultDate);
+                mydate.setUTCHours(mydate.getUTCHours()-1);
+                year = mydate.getUTCFullYear();
+                month = mydate.getUTCMonth()+1;
+                day = mydate.getUTCDate();
+                hour = mydate.getUTCHours();
             }
             var airport = $('.header__search-box').eq(3).val();
             ajaxSetup = {
@@ -139,39 +141,24 @@ window.Handlers = {
                         {},
                         {
                             success: function (data) {
-                                $('#airportTime').attr('data-time-offset', data[0].name)
+                                $('#airportTime').attr('data-time-offset', data[0].name);
+                                $.ajax($.extend(
+                                    {},
+                                    {
+                                        beforeSend: function () {
+                                            $('.content').show().addClass('m-load');
+                                        },
+                                        success: function (data) {
+                                            $('.content').show().removeClass('m-load');
+                                            $('#flightRow').tmpl(data).appendTo('#contentRow');
+                                        }
+                                    },
+                                    window.ajaxSetup.getFlightsInfo()
+                                ));
                             }
                         },
                         window.ajaxSetup.getAirportsParamsSearch('offset')
                     ));
-
-
-
-                    $.ajax($.extend(
-                        {},
-                        {
-                            beforeSend: function () {
-                                $('.content').show().addClass('m-load');
-                            },
-                            success: function (data) {
-                                $('.content').show().removeClass('m-load');
-                                $('#flightRow').tmpl(data).appendTo('#contentRow');
-                            }
-                        },
-                        ajaxSetup.getFlightsInfo()
-                    ));
-
-
-
-
-
-
-
-
-
-
-
-
                 } else {
                     $('.header__search-box:not(.m-green)').each(function () {
                         if (!$(this).hasClass('m-button')) {
@@ -212,9 +199,6 @@ $(function(){
     $('section.content').on('scroll' ,function(){
         Handlers.scroll.tableScroll();
     });
-    $('.header__search-box').eq(3).val('SVO');
-    $('.header__search-box').eq(4).trigger('click');
-
 });
 
 function digitalWatch() {
@@ -224,12 +208,8 @@ function digitalWatch() {
     var hours = mydate.getUTCHours(),
         minutes = mydate.getUTCMinutes(),
         seconds = mydate.getUTCSeconds();
-    window.airportDate = {
-        hour: mydate.getUTCHours(),
-        day: mydate.getUTCDay(),
-        month: mydate.getUTCMonth(),
-        year: mydate.getUTCFullYear()
-    };
+    window.airportDefaultDate = mydate;
+
     if (hours < 10) hours = "0" + hours;
     if (minutes < 10) minutes = "0" + minutes;
     if (seconds < 10) seconds = "0" + seconds;

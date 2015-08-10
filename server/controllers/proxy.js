@@ -25,7 +25,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
         result = [];
     function getFormatedAirportData (url) {
         var result = [],
-            res = ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),//JSON.parse(request('GET', url).getBody('utf8')),
+            res = ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),// JSON.parse(request('GET', url).getBody('utf8')),
             flightStatuses = res.flightStatuses,
             airlines = models.airlines(),
             airports = res.appendix.airports,
