@@ -5,24 +5,19 @@
     position: absolute;
     top: 0px;
     z-index: 2;
+    &.m-load {
+        background-color: lightgray;
+    }
     & > div {
         padding-top: 120px;
         overflow: scroll;
     }
     &__table{
         width: 94%;
-        table-layout: fixed;
-        border-collapse: collapse;
         word-break: break-all;
         margin-left: 3%;
         height: 100%;
         cursor: pointer;
-        &-logo {
-            width: 100%;
-            height: 100%;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-        }
         &-head {
             position: fixed;
             top: 70px;
@@ -32,13 +27,37 @@
             font-weight: 400;
             font-style: italic;
             line-height: 50px;
+            z-index: 1;
             margin-left: -1px;
         }
         & th {
             border: 1px solid grey;
-            width: 1%;
             &:hover {
                 opacity: 0.75;
+            }
+            &:nth-child(1) {
+                width: 1%;
+                min-width: 49px;
+            }
+            &:nth-child(2) {
+                width: 1%;
+                min-width: 69px;
+            }
+            &:nth-child(3) {
+                width: 1%;
+                min-width: 149px;
+            }
+            &:nth-child(4) {
+                width: 1%;
+                min-width: 49px;
+            }
+            &:nth-child(5) {
+                width: 1%;
+                min-width: 119px;
+            }
+            &:nth-child(6) {
+                width: 1%;
+                min-width: 39px;
             }
         }
         &-tr {
@@ -51,17 +70,45 @@
             }
         }
         &-td {
-            padding-left: 20px;
             border-color: grey;
             &:hover {
                 background-color: lightgreen;
             }
-            & div{
-                height: 50px;
+            &-div{
+                height: 100%;
                 width: 100%;
                 overflow: hidden;
+                word-break: break-all;
+                display: table;
+                position: relative;
+            }
+            &-span {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
                 word-break: break-word;
             }
+            & .m-icon {
+                width: 50px;
+                height: 50px;
+                width: 32px;
+                height: 32px;
+                position: relative;
+                top: 9px;
+                left: 9px;
+                background-position: center;
+                background-repeat: no-repeat;
+                &.m-arrival {
+                    background-image: url(../img/icons/icon-arrival.png);
+                }
+                &.m-departure {
+                    background-image: url(../img/icons/icon-departure.png);
+                }
+                &.m-contain {
+                    background-size: contain;
+                }
+            }
+
         }
     }
 }
@@ -79,8 +126,10 @@ body {
         }
     }
 }
+/*
 @media (max-width: 900px) {
     td:nth-child(3), th:nth-child(3) {
         display: none;
     }
 }
+*/

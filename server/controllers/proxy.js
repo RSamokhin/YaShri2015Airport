@@ -38,6 +38,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     return  flight.arrivalAirportFsCode === airport.fs;
                 })[0],
                 rflight = {
+                    type: (airport === flight.arrivalAirportFsCode) ? 'arrival' : 'departure',
                     flight: flight.carrierFsCode + flight.flightNumber,
                     codeshares: flight.codeshares ? flight.codeshares.map(function (share) {
                         return share.fsCode + share.flightNumber;
@@ -82,7 +83,11 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
         });
         return result;
     };
-    result = result.concat(getFormatedAirportData(urlArr)).concat(getFormatedAirportData(urlDep));
+    result = result.concat(getFormatedAirportData(urlArr)).concat(getFormatedAirportData(urlDep)).sort(function (a, b) {
+        var dateA = (a.type === 'arrival') ? new Date(a.arrivalDate) : new Date(a.departureDate);
+        var dateB = (b.type === 'arrival') ? new Date(b.arrivalDate) : new Date(b.departureDate);
+        return dateA - dateB;
+    });
     this.body = result;
 
 };
