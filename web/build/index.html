@@ -80,6 +80,9 @@
                                    readonly/>
                         </div>
                     </div>
+                    <div class="header__tags-container">
+
+                    </div>
                     <div class="header__time-container m-hidden">
                         <div class="header__time-value" id="airportTime" data-time-offset="0">time</div>
                         <div class="header__time-label">Airport time: </div>
@@ -96,9 +99,10 @@
     <div class="content__filter m-filter m-right" data-bind-click="filterResults"></div>
     <div class="content__filter-container m-hidden">
         <input class="content__filter-input" placeholder="Your search"/>
-        <input readonly class="content__filter-button"/>
+        <input readonly class="content__filter-button" data-bind-click="addFilterTag"/>
     </div>
     <div class="content__table-container">
+        <div class="loader m-hidden"></div>
         <table border="1" class='content__table'>
             <col width="50">
             <col width="70">
@@ -235,7 +239,7 @@
                 <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
                      <div class="content__table-td-div">
                         <span class="content__table-td-span">
-                            TailNumber: ${tailNumber} / Departure Terminal: ${departureTerminal} / Departure Gate: ${departureGate} / Arrival Ternimal: ${arrivalTerminal}
+                            TailNumber: ${tailNumber} / Departure Terminal: ${departureTerminal} / Arrival Ternimal: ${arrivalTerminal}
                         </span>
                     </div>
                 </td>

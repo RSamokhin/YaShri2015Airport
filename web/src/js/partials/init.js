@@ -172,11 +172,13 @@ window.Handlers = {
                                     {},
                                     {
                                         beforeSend: function () {
-                                            $('.content').show().addClass('m-load');
+                                            $('.loader').removeClass('m-hidden');
+                                            $('.content').show();
                                         },
                                         success: function (data) {
                                             $('#contentRow').children().remove();
-                                            $('.content').removeClass('m-hidden').removeClass('m-load');
+                                            $('.content').removeClass('m-hidden');
+                                            $('.loader').addClass('m-hidden');
                                             $('#flightRow').tmpl(data).appendTo('#contentRow');
                                         }
                                     },
@@ -187,18 +189,63 @@ window.Handlers = {
                         window.ajaxSetup.getAirportsParamsSearch('offset')
                     ));
                 } else {
-                    $('.header__search-box:not(.m-green)').each(function () {
-                        if (!$(this).hasClass('m-button')) {
-                            $(this).animate({backgroundColor: 'red'}, 'slow').animate({backgroundColor: 'white'}, 'slow').queue(function () {
-                                $(this).removeAttr('style');
-                            });
-                        }
-                    });
                     $('.header__search-box:not(.m-green)').first().trigger('click');
                 }
             },
             showMenu: function () {
                 $(document.body).removeClass('m-scrolled')
+            },
+            filterResults: function () {
+                $('.content__filter-container').toggleClass('m-hidden');
+                $('.content__filter-input').focus();
+                window.Handlers.click.showMenu();
+            },
+            clearFilter: function () {
+                var $this = $(this),
+                    $tags = $('.header__tags-container'),
+                    $tbody = $('.content__table-body');
+                    $this.remove();
+                $tbody.children().show();
+                $tags.children().each(function (i, el) {
+                    var val = $(el).text();
+                    $tbody.find('tr').each(function (i, tr) {
+                        $tr = $(tr);
+                        if (!~$tr.text().toLowerCase().indexOf(val)) {
+                            $tr.hide();
+                        }
+                    });
+                });
+                if (!$tags.children().length)
+                    $('.content__filter.m-filter ').removeClass('m-filtered');
+            },
+            addFilterTag: function () {
+                var $input = $('.content__filter-input'),
+                    $tags = $('.header__tags-container'),
+                    $tbody = $('.content__table-body'),
+                    filter;
+                $('.content__filter.m-filter ').addClass('m-filtered')
+                if ($input.val().trim().length && $tags.children().length < 5) {
+                    filter = $input.val().trim().toLowerCase();
+                    $tbody.find('tr').each(function (i, tr) {
+                        $tr = $(tr);
+                        if (!~$tr.text().toLowerCase().indexOf(filter)) {
+                            $tr.hide();
+                        }
+                    });
+                    $('.content__filter-container').addClass('m-hidden');
+                    $input.val('');
+                    $('<span/>').addClass('header__tags-span').attr('data-bind-click', 'clearFilter').text(filter).appendTo($tags);
+                    window.Handlers.click.showMenu();
+                } else {
+                    $($input).addClass('m-red');
+                    $($tags).addClass('m-red');
+                    setTimeout(function () {
+                        $($tags).removeClass('m-red');
+                    }, 1000);
+                    setTimeout(function () {
+                        $($input, $tags).removeClass('m-red');
+                    }, 1000);
+                }
             }
         },
         keyup: {

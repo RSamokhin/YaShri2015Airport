@@ -1,6 +1,28 @@
 .header {
     height: 100px;
     width: 100%;
+    &__tags{
+        &-container {
+            position: fixed;
+            top: 51px;
+            height: 20px;
+            &.m-red {
+                background-color: lightcoral;
+            }
+        }
+        &-span {
+            background-color: lightcoral;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 10px;
+            &:after {
+                content: '|x|';
+                padding-left: 10px;
+                cursor: pointer;
+            }
+        }
+    }
     &__menu-show {
         position: absolute;
         width: 3%;
