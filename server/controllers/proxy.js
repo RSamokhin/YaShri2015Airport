@@ -25,7 +25,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
         result = [];
     function getFormatedAirportData (url) {
         var result = [],
-            res = JSON.parse(request('GET', url).getBody('utf8')), //~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(),
+            res = ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(), //JSON.parse(request('GET', url).getBody('utf8')),
             flightStatuses = res.flightStatuses,
             airlines = models.airlines(),
             airports = res.appendix.airports,
@@ -59,10 +59,10 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     arrivalDate: flight.arrivalDate.dateLocal,
                     time: (airport === flight.arrivalAirportFsCode) ? (function () {
                         var tdate = new Date(flight.arrivalDate.dateLocal);
-                        return (tdate.getUTCHours() > 9 ? tdate.getUTCHours() : '0' + tdate.getUTCHours())+':'+(tdate.getUTCMinutes() > 9 ? tdate.getUTCMinutes() : '0' + tdate.getUTCMinutes());
+                        return (tdate.getUTCHours() > 9 ? tdate.getUTCHours() : '0' + tdate.getUTCHours().toString())+':'+(tdate.getUTCMinutes() > 9 ? tdate.getUTCMinutes() :  '0'+ tdate.getUTCMinutes().toString());
                     })(): (function () {
                         var tdate = new Date(flight.departureDate.dateLocal);
-                        return tdate.getUTCHours()+':'+tdate.getUTCMinutes();
+                        return (tdate.getUTCHours() > 9 ? tdate.getUTCHours() : '0' + tdate.getUTCHours().toString())+':'+(tdate.getUTCMinutes() > 9 ? tdate.getUTCMinutes() :  '0'+ tdate.getUTCMinutes().toString());
                     })(),
                     status: flight.status,
                     flightEquipmentCode: flight.flightEquipment ? flight.flightEquipment.scheduledEquipmentIataCode : '-',

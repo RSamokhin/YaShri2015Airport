@@ -160,6 +160,7 @@ window.Handlers = {
             },
             showResults: function (year, month, day, hour) {
                 var $timeContainer = $('.header__time-container');
+                $('.content__filter.m-filtered').trigger('click').removeClass('m-filtered');
                 if ($('.header__search-box.m-green').length === 4) {
                     $timeContainer.removeClass('m-hidden');
                     $.ajax($.extend(
