@@ -1,0 +1,41 @@
+.layer {
+    &__container {
+        position: absolute;
+        z-index: 10001;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        top: 0;
+        left: 0;
+        opacity: 0.6;
+        &.m-hidden {
+            display: none;
+        }
+        &-data {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 30%;
+            position: absolute;
+            height: 1px;
+        }
+    }
+    &__button{
+        height: 50px;
+        width:  50px;
+        background-position: center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.6;
+        }
+        &.m-close {
+            background-image: url(../img/icons/icon-close.png);
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}

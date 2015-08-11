@@ -106,9 +106,12 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     tailNumber: flight.flightEquipment ? flight.flightEquipment.tailNumber : '-',
                     arrivalTerminal: flight.airportResources ? flight.airportResources.arrivalTerminal : null,
                     departureTerminal: flight.airportResources ? flight.airportResources.departureTerminal : null,
-                    departureGate: flight.airportResources ? flight.airportResources.departureGate : null,
+                    terminal: (airport === flight.arrivalAirportFsCode) ? (flight.airportResources ? flight.airportResources.arrivalTerminal : null) : ( flight.airportResources ? flight.airportResources.departureTerminal : null),
                     delays: {
-
+                        estimatedGateDeparture: flight.operationalTimes.estimatedGateDeparture ? flight.operationalTimes.estimatedGateDeparture.dateLocal : null,
+                        actualGateDeparture: flight.operationalTimes.actualGateDeparture ? flight.operationalTimes.actualGateDeparture.dateLocal : null,
+                        estimatedGateArrival: flight.operationalTimes.estimatedGateArrival ? flight.operationalTimes.estimatedGateArrival.dateLocal : null,
+                        actualGateArrival: flight.operationalTimes.actualGateArrival ? flight.operationalTimes.actualGateArrival.dateLocal : null
                     }
                 };
             rflight.codeshares.push(flight.carrierFsCode + flight.flightNumber);

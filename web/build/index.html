@@ -143,7 +143,12 @@
     </div>
 </section>
         <section class="footer">
-
+                <div class="layer__container m-hidden">
+                        <div class="layer__button m-close" data-bind-click="layerClose"></div>
+                        <div class="layer__container-data">
+                             <input layer-label/>
+                        </div>
+                </div>
         </section>
 
         <script src="js/main.js"></script>
@@ -155,7 +160,7 @@
         </script>
         
         <script id="flightRow" type="text/x-jquery-tmpl">
-            <tr class="content__table-tr">
+            <tr class="content__table-tr" data-bind-click='showFlightInfo' data-flight="${flight}">
                <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
                     <div class="content__table-td-div">
                         <div class="m-icon m-${type}">
@@ -239,7 +244,7 @@
                 <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
                      <div class="content__table-td-div">
                         <span class="content__table-td-span">
-                            TailNumber: ${tailNumber} / Departure Terminal: ${departureTerminal} / Arrival Ternimal: ${arrivalTerminal}
+                              Terminal: ${terminal}
                         </span>
                     </div>
                 </td>

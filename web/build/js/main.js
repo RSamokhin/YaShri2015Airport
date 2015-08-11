@@ -10522,7 +10522,10 @@ window.Handlers = {
                 window.Handlers.keyup.acAirportSearch.call(this);
             },
             showResults: function (year, month, day, hour) {
-                var $timeContainer = $('.header__time-container');
+                var $timeContainer = $('.header__time-container'),
+                    $tags = $('.header__tags-container');
+                $tags.children().remove();
+                $('.content__filter-container').addClass('m-hidden');
                 $('.content__filter.m-filtered').trigger('click').removeClass('m-filtered');
                 if ($('.header__search-box.m-green').length === 4) {
                     $timeContainer.removeClass('m-hidden');
@@ -10554,6 +10557,14 @@ window.Handlers = {
                 } else {
                     $('.header__search-box:not(.m-green)').first().trigger('click');
                 }
+            },
+            layerClose: function () {
+                $('.layer__container').addClass('m-hidden');
+                $('layer__item').remove();
+            },
+            showFlightInfo: function () {
+                $tr = $(this);
+                $('.layer__container').removeClass('m-hidden');
             },
             showMenu: function () {
                 $(document.body).removeClass('m-scrolled')
