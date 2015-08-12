@@ -5,6 +5,11 @@
     position: absolute;
     top: 0px;
     z-index: 2;
+
+
+
+
+
     &__filter {
         width: 3%;
         height: 70px;
@@ -108,60 +113,69 @@
             font-style: italic;
             line-height: 50px;
             z-index: 1;
-            margin-left: -1px;
+            display: inline-block;
+            margin-left: 3%;
         }
-        & th {
+        &-th {
+            background-color: transparent;
             border: 1px solid grey;
+            line-height: 48px;
+            display: inline-block;
+            text-align: center;
+            box-sizing: content-box;
+            &-span {
+                position: relative;
+            }
             &:hover {
                 opacity: 0.75;
             }
             &:nth-child(1) {
-                width: 1%;
-                min-width: 49px;
+               
+               width: 50px;
             }
             &:nth-child(2) {
-                width: 1%;
-                min-width: 69px;
+               
+               width: 70px;
             }
             &:nth-child(3) {
-                width: 1%;
-                min-width: 149px;
+               
+               width: 150px;
             }
             &:nth-child(4) {
-                width: 1%;
-                min-width: 49px;
+               
+               width: 50px;
             }
             &:nth-child(5) {
-                width: 1%;
-                min-width: 119px;
+               
+               width: 120px;
             }
             &:nth-child(6) {
-                width: 1%;
-                min-width: 39px;
+               
+               width: 40px;
             }
             &:nth-child(7) {
-                width: 1%;
-                min-width: 119px;
+               
+               width: 120px;
             }
             &:nth-child(8) {
-                width: 1%;
-                min-width: 39px;
+               
+               width: 40px;
             }
             &:nth-child(9) {
-                width: 1%;
-                min-width: 99px;
+               
+               width: 100px;
             }
             &:nth-child(10) {
-                width: 1%;
-                min-width: 69px;
+               
+               width: 70px;
             }
             &:nth-child(11) {
-                width: 1%;
-                min-width: 49px;
+               
+               width: 50px;
             }
             &:nth-child(12) {
-                width: 1%;
-                min-width: 149px;
+               
+               width: 150px;
             }
         }
         &-tr {
