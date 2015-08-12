@@ -51,11 +51,6 @@ window.Handlers = {
                 $('.content__table-tr td:nth-child(' + n + ')').removeClass('m-highlighted');
             }
         },
-        scroll: {
-            tableScroll: function () {
-               $(document.body).addClass('m-scrolled')
-            }
-        },
         click: {
             filterTableByType: function () {
                 var $button = $(this),
@@ -183,6 +178,7 @@ window.Handlers = {
                                             $('.content').removeClass('m-hidden');
                                             $('.loader').addClass('m-hidden');
                                             $('#flightRow').tmpl(data).appendTo('#contentRow');
+                                            window.dataFlights = data;
                                         }
                                     },
                                     window.ajaxSetup.getFlightsInfo(year, month, day, hour)
@@ -191,6 +187,8 @@ window.Handlers = {
                         },
                         window.ajaxSetup.getAirportsParamsSearch('offset')
                     ));
+                    $(document.body).addClass('m-scrolled');
+                    $('.content__filter-container').addClass('m-hidden');
                 } else {
                     $('.header__search-box:not(.m-green)').first().trigger('click');
                 }
@@ -200,8 +198,43 @@ window.Handlers = {
                 $('layer__item').remove();
             },
             showFlightInfo: function () {
-                $tr = $(this);
-                $('.layer__container').removeClass('m-hidden');
+                var $tr = $(this),
+                    flightN = $tr.attr('data-flight'),
+                    fields = {
+                         "type": "Flight Type",
+                         "flight": "Flight Number",
+                         "codeshares":"CoSharing Flights",
+                         "carrier": "Airlines",
+                         "departureAirportCountry": "From County",
+                         "departureAirportCity": "From City",
+                         "departureAirportName": "From Airport",
+                         "arrivalAirportCountry": "Destination Country",
+                         "arrivalAirportCity": "Destination City",
+                         "arrivalAirportName": "Destination Airport",
+                         "departureDate": "Departure Planned",
+                         "arrivalDate": "Arrival Planned",
+                         "status": "Flight Status",
+                         "flightEquipment": "Plane Type",
+                         "terminal": "Terminal",
+                         "estimatedGateDeparture": "Estimated Departure",
+                         "actualGateDeparture": "Actual Departure",
+                         "estimatedGateArrival": "Estimated Arrival",
+                         "actualGateArrival": "Actual Arrival"
+                    },
+                    flight = window.dataFlights.filter(function (flight) {
+                        return flight.flight === flightN;
+                    })[0] || {},
+                    resultDataObject = [];
+                    Object.keys(fields).forEach(function (field) {
+                        if (flight[field] !== undefined && flight[field] !== null && flight[field].length !== 0 && flight[field] !== '-') {
+                            resultDataObject.push({
+                                key: fields[field],
+                                value: ((new Date(flight[field]) == 'Invalid Date')) ? flight[field].toString() : (new Date(flight[field])).toUTCString()
+                            });
+                        }
+                    });
+                    $('.layer__container').removeClass('m-hidden');
+                $('#fullInfoRow').tmpl(resultDataObject).appendTo('.layer__container-data');
             },
             showMenu: function () {
                 $(document.body).removeClass('m-scrolled')
@@ -281,14 +314,11 @@ $(function(){
         });
     });
     digitalWatch();
-    $('section.content').on('scroll' ,function(){
-        window.Handlers.scroll.tableScroll();
-    });
 });
 
 function digitalWatch() {
     var mydate = new Date(),
-        offset =  document.getElementById("airportTime").dataset.timeOffset;
+        offset = $("#airportTime").attr('data-time-offset');
     mydate.setUTCMinutes(mydate.getMinutes()+ offset*60);
     var hours = mydate.getUTCHours(),
         minutes = mydate.getUTCMinutes(),

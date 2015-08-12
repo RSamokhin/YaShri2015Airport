@@ -91,7 +91,7 @@
             </div>
             <div class="header__menu-show" data-bind-click="showMenu"></div>
         </section>
-<section class="content m-hidden" data-bind-scroll="tableScroll" >
+<section class="content m-hidden" >
     <div class="content__filter m-arrivals" data-bind-click="filterTableByType" data-filter-param="arrival"></div>
     <div class="content__filter m-deparures" data-bind-click="filterTableByType" data-filter-param="departure"></div>
     <div class="content__filter m-showUp m-right" data-bind-click="showNext"></div>
@@ -144,9 +144,10 @@
 </section>
         <section class="footer">
                 <div class="layer__container m-hidden">
+                        <div class="layer-overlay"></div>
                         <div class="layer__button m-close" data-bind-click="layerClose"></div>
                         <div class="layer__container-data">
-                             <input layer-label/>
+                             <input class="layer-label" readonly value="Full Flight Info"/>
                         </div>
                 </div>
         </section>
@@ -250,6 +251,13 @@
                 </td>
         
             </tr>
+        </script>
+        
+        <script id="fullInfoRow" type="text/x-jquery-tmpl">
+            <div class="layer__item">
+                <input class="layer__item-key"  value="${key}" readonly/>
+                <input class="layer__item-value"  value="${value}" readonly/>
+            </div>
         </script>
         </body>
 </html>
