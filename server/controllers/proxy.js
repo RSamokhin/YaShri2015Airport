@@ -14,18 +14,18 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
             year + '/' +
             month + '/' +
             day  + '/' +
-            hour + '/?appId=01e8e01e&appKey=1d0c14aeebb6875e849b703c8863c724&utc=false&numHours=6',
+            hour + '/?appId=01e8e01e&appKey=1d0c14aeebb6875e849b703c8863c724&utc=false&numHours=1',
         urlArr = 'https://api.flightstats.com/flex/flightstatus/rest/v2/json/airport/status/' +
             airport + '/' +
             'arr' + '/' +
             year + '/' +
             month + '/' +
             day  + '/' +
-            hour + '/?appId=01e8e01e&appKey=1d0c14aeebb6875e849b703c8863c724&utc=false&numHours=5',
+            hour + '/?appId=01e8e01e&appKey=1d0c14aeebb6875e849b703c8863c724&utc=false&numHours=1',
         result = [];
     function getFormatedAirportData (url) {
         var result = [],
-            res = ~(url).indexOf('/arr/') ? models.svoarr() : models.svodep(), //JSON.parse(request('GET', url).getBody('utf8')),
+            res = (airport === 'SVO') ? (~(url).indexOf('/arr/') ? models.svoarr() : models.svodep()) : JSON.parse(request('GET', url).getBody('utf8')),
             flightStatuses = res.flightStatuses,
             airlines = models.airlines(),
             airports = res.appendix.airports,

@@ -1,20 +1,18 @@
 window.ajaxSetup = {
         getAirportsParamsSearch: function (p) {
-            var query = {},
-                ajaxSetup = {};
+            var query = {};
             $('.header__airport-container').find('.header__search-box:not(.m-button)').each(function () {
                 var $el = $(this);
                 if ($el.val().length) {
                     query[$el.data('filter')] = $el.val();
                 }
             });
-            ajaxSetup = {
+            return {
                 url: '/api/proxy/airports/filter/' + p,
                 type: 'get',
                 dataType: 'JSON',
                 data: query
             };
-            return ajaxSetup;
         },
         getFlightsInfo: function (year, month, day, hour) {
             window.digitalWatch();
@@ -27,13 +25,11 @@ window.ajaxSetup = {
                 hour = mydate.getUTCHours();
                 window.filterDate = new Date(mydate);
             }
-            var airport = $('.header__search-box').eq(3).val(),
-            ajaxSetup = {
-                url: '/api/proxy/airport/' + airport +'/' + year + '/' + month + '/' + day +'/' + hour + '/',
+            return {
+                url: '/api/proxy/airport/' + $('.header__search-box').eq(3).val() +'/' + year + '/' + month + '/' + day +'/' + hour + '/',
                 type: 'get',
-                dataType: 'JSON',
+                dataType: 'JSON'
             };
-            return ajaxSetup;
         }
     };
 window.Handlers = {
@@ -56,7 +52,7 @@ window.Handlers = {
                 var $button = $(this),
                     param = $button.data('filter-param');
                 $button.toggleClass('m-filtered');
-                $('.content__table').find('.m-'+param).closest('.content__table-tr').toggle()
+                $('.content__table').find('.m-'+param).closest('.content__table-tr').toggleClass('m-filtered-type');
             },
             listAirportSuggestions: function () {
                 var $input = $(this).parent().find('input'),
@@ -106,7 +102,7 @@ window.Handlers = {
                 }
             },
             showNext: function () {
-                window.filterDate.setUTCHours( window.filterDate.getUTCHours() + 6);
+                window.filterDate.setUTCHours( window.filterDate.getUTCHours() + 1);
                 window.Handlers.click.showResults(
                     window.filterDate.getUTCFullYear(),
                     window.filterDate.getUTCMonth()+1,
@@ -115,7 +111,7 @@ window.Handlers = {
                 );
             },
             showPrev: function () {
-                window.filterDate.setUTCHours( window.filterDate.getUTCHours() - 6);
+                window.filterDate.setUTCHours( window.filterDate.getUTCHours() - 1);
                 window.Handlers.click.showResults(
                     window.filterDate.getUTCFullYear(),
                     window.filterDate.getUTCMonth()+1,
@@ -125,7 +121,6 @@ window.Handlers = {
             },
             clearInput: function () {
                 var weight = $(this).data('weight'),
-                    self = this,
                     $allSuggestions=$('.header__search-suggestions');
                 $allSuggestions.removeClass('m-visible');
                 $(this).parent().find('input').val('');
@@ -158,9 +153,10 @@ window.Handlers = {
             },
             showResults: function (year, month, day, hour) {
                 var $timeContainer = $('.header__time-container'),
-                    $tags = $('.header__tags-container');
+                    $tags = $('.header__tags-container'),
+                    $container =  $('.content__filter-container');
                 $tags.children().remove();
-                $('.content__filter-container').addClass('m-hidden');
+                $container.addClass('m-hidden');
                 $('.content__filter.m-filtered').trigger('click').removeClass('m-filtered');
                 if ($('.header__search-box.m-green').length === 4) {
                     $timeContainer.removeClass('m-hidden');
@@ -197,7 +193,7 @@ window.Handlers = {
                         window.ajaxSetup.getAirportsParamsSearch('offset')
                     ));
                     $(document.body).addClass('m-scrolled');
-                    $('.content__filter-container').addClass('m-hidden');
+                    $container.addClass('m-hidden');
                 } else {
                     $('.header__search-box:not(.m-green)').first().trigger('click');
                 }
@@ -258,13 +254,13 @@ window.Handlers = {
                     $tags = $('.header__tags-container'),
                     $tbody = $('.content__table-body');
                     $this.remove();
-                $tbody.children().show();
+                $tbody.children('.m-filtered-tag').removeClass('m-filtered-tag');
                 $tags.children().each(function (i, el) {
                     var val = $(el).text();
-                    $tbody.find('tr').each(function (i, tr) {
+                    $tbody.find('.content__table-tr').each(function (i, tr) {
                         $tr = $(tr);
                         if (!~$tr.text().toLowerCase().indexOf(val)) {
-                            $tr.hide();
+                            $tr.addClass('m-filtered-tag');
                         }
                     });
                 });
@@ -276,13 +272,13 @@ window.Handlers = {
                     $tags = $('.header__tags-container'),
                     $tbody = $('.content__table-body'),
                     filter;
-                $('.content__filter.m-filter ').addClass('m-filtered')
+                $('.content__filter.m-filter').addClass('m-filtered');
                 if ($input.val().trim().length && $tags.children().length < 5) {
                     filter = $input.val().trim().toLowerCase();
-                    $tbody.find('content__table-tr').each(function (i, tr) {
+                    $tbody.find('.content__table-tr').each(function (i, tr) {
                         $tr = $(tr);
                         if (!~$tr.text().toLowerCase().indexOf(filter)) {
-                            $tr.hide();
+                            $tr.addClass('m-filtered-tag');
                         }
                     });
                     $('.content__filter-container').addClass('m-hidden');

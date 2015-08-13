@@ -68,14 +68,26 @@
     &.m-right {
       position: fixed;
       right: 0;
+      margin-right: 30px;
+    }
+    &:not(.m-right) {
+      margin-left: 30px;
     }
     &.m-showUp{
       top: 151px;
       background-image: url(../img/icons/icon-showUp.png);
+      &:after {
+        content: '+1 HOUR';
+        font-size: 10px;
+      }
     }
     &.m-showDown{
       top: 231px;
       background-image: url(../img/icons/icon-showDown.png);
+      &:after {
+        content: '-1 HOUR';
+        font-size: 10px;
+      }
     }
     &.m-filter {
       top: 71px;
@@ -93,6 +105,7 @@
     word-break: break-all;
     margin-left: 10%;
     height: 100%;
+    z-index: 1;
     cursor: pointer;
     &-container {
       padding-top: 120px;
@@ -107,7 +120,7 @@
       font-weight: 400;
       font-style: italic;
       line-height: 50px;
-      z-index: 1;
+      z-index: 3;
       display: inline-block;
     }
     &-tr, &-head {
@@ -183,10 +196,16 @@
 
     }
     &-tr {
+      &.m-filtered-tag {
+        display:none;
+      }
+      &.m-filtered-type {
+        display:none;
+      }
       &:nth-child(odd) {
         background-color: lavender;
       }
-      &:hover, & .m-highlighted{
+      &:hover {
         background-color: honeydew;
       }
     }
@@ -196,8 +215,23 @@
       zoom: 1;
       height: 100%;
       border-color: grey;
+      position: relative;
+      font-size: 14px;
       &:hover {
-        background-color: lightgreen;
+      /*  &::after {
+          content: "";
+          position: absolute;
+          background-color: honeydew;
+          left: 0;
+          top: -5000px;
+          height: 10000px;
+          width: 100%;
+          z-index: -1;
+        } */
+        background-color: lightgreen !important;
+      }
+      &.m-highlighted {
+        background-color: honeydew;
       }
       &-div{
         height: 100%;
@@ -214,8 +248,7 @@
         word-break: break-word;
       }
       & .m-icon {
-        width: 50px;
-        height: 50px;
+
         width: 32px;
         height: 32px;
         position: relative;
@@ -256,8 +289,11 @@ body {
   width: 100%;
   height: 120%;
   background-color: lemonchiffon;
+  background-image: url(../img/icons/icon-loading.gif);
+  background-repeat: no-repeat;
+  background-position: center;
   top: -50px;
-  z-index: 2;
+  z-index: 5;
   &.m-hidden {
     display: none;
   }
