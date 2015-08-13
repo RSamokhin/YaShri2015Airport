@@ -6,96 +6,95 @@
 </script>
 
 <script id="flightRow" type="text/x-jquery-tmpl">
-    <tr class="content__table-tr" data-bind-click='showFlightInfo' data-flight="${flight}">
-       <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+    <div class="content__table-tr" data-bind-click="showFlightInfo" data-flight="${flight}">
+       <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
             <div class="content__table-td-div">
-                <div class="m-icon m-${type}">
+                <div class="m-icon m-${type}"></div>
             </div>
-       </td>
-       <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+       </div>
+       <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
             <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${flight}
                 </span>
             </div>
-        </td>
-       <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+       <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
             <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${carrier}
                 </span>
             </div>
-        </td>
-       <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+       <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
             <div class="content__table-td-div">
-                <div class="m-icon m-contain" style="background-image: url(http://logos.skyscnr.com/images/airlines/favicon/${carrierFsCode}.png) "></div>
+                <div title="${carrier}" class="m-icon m-contain" style="background-image: url(http://logos.skyscnr.com/images/airlines/favicon/${carrierFsCode}.png) "></div>
             </div>
-        </td>
-       <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+       <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${departureAirportCity}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${departureAirportFsCode}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${arrivalAirportCity}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${arrivalAirportFsCode}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${time}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${status}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${flightEquipmentCode}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
                     ${flightEquipment}
                 </span>
             </div>
-        </td>
-        <td class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
+        </div>
+        <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
              <div class="content__table-td-div">
                 <span class="content__table-td-span">
-                      Terminal: ${terminal}
+                      Terminal: ${terminal}, Click for more Info
                 </span>
             </div>
-        </td>
-
-    </tr>
+        </div>
+    </div>
 </script>
 
 <script id="fullInfoRow" type="text/x-jquery-tmpl">

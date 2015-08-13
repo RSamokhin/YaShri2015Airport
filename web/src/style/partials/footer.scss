@@ -94,3 +94,28 @@
         }
     }
 }
+.hider {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: azure;
+    z-index: 1300;
+    & > span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 50px;
+        width: 400px;
+        margin: auto;
+    }
+}
+@media (max-width: 649px) {
+    .hider {
+        display: block;
+    }
+}

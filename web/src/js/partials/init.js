@@ -41,14 +41,14 @@ window.Handlers = {
             hoverTableColumn:function () {
                 var $td = $(this),
                     n = parseInt($(this).index()) + 1;
-                $('.content__table-tr td:nth-child(' + n + ')').addClass('m-highlighted');
+                $('.content__table-tr .content__table-td:nth-child(' + n + ')').addClass('m-highlighted');
             }
         },
         mouseleave: {
             hoverLeaveTableColumn: function () {
                 var $td = $(this),
                     n = parseInt($(this).index()) + 1;
-                $('.content__table-tr td:nth-child(' + n + ')').removeClass('m-highlighted');
+                $('.content__table-tr .content__table-td:nth-child(' + n + ')').removeClass('m-highlighted');
             }
         },
         click: {
@@ -73,6 +73,9 @@ window.Handlers = {
                                 $input.addClass('m-load');
                             },
                             success: function (data) {
+                                if (!data || data.length === 0) {
+                                    data = [];
+                                }
                                 $input.removeClass('m-load');
                                 if (data.length) {
                                     if (data.length > 300) {
@@ -165,6 +168,9 @@ window.Handlers = {
                         {},
                         {
                             success: function (data) {
+                                if (!data || data.length === 0) {
+                                    data = [];
+                                }
                                 $('#airportTime').attr('data-time-offset', data[0].name);
                                 $.ajax($.extend(
                                     {},
@@ -174,6 +180,9 @@ window.Handlers = {
                                             $('.content').show();
                                         },
                                         success: function (data) {
+                                            if (!data || data.length === 0) {
+                                                data = [];
+                                            }
                                             $('#contentRow').children().remove();
                                             $('.content').removeClass('m-hidden');
                                             $('.loader').addClass('m-hidden');
@@ -270,7 +279,7 @@ window.Handlers = {
                 $('.content__filter.m-filter ').addClass('m-filtered')
                 if ($input.val().trim().length && $tags.children().length < 5) {
                     filter = $input.val().trim().toLowerCase();
-                    $tbody.find('tr').each(function (i, tr) {
+                    $tbody.find('content__table-tr').each(function (i, tr) {
                         $tr = $(tr);
                         if (!~$tr.text().toLowerCase().indexOf(filter)) {
                             $tr.hide();
