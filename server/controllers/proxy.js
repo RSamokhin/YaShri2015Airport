@@ -30,7 +30,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
             airlines = models.airlines(),
             airports = res.appendix.airports,
             equipments = res.appendix.equipments;
-        flightStatuses.forEach(function (flight) {
+        flightStatuses.forEach(function (flight, index) {
             var departureAirport = airports.filter(function (airport) {
                     return  flight.departureAirportFsCode === airport.fs;
                 })[0],
@@ -38,6 +38,7 @@ module.exports.requestAirport = function * (airport, year, month, day, hour) {
                     return  flight.arrivalAirportFsCode === airport.fs;
                 })[0],
                 rflight = {
+                    index: index,
                     type: (airport === flight.arrivalAirportFsCode) ? 'arrival' : 'departure',
                     flight: flight.carrierFsCode + flight.flightNumber,
                     codeshares: flight.codeshares ? flight.codeshares.map(function (share) {

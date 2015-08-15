@@ -52,19 +52,16 @@ window.Handlers = {
                 var $button = $(this),
                     param = $button.data('filter-param');
                 $button.toggleClass('m-filtered');
-                $('.content__table').find('.m-'+param).closest('.content__table-tr').each(function (i, tr) {
-                    var $tr = $(tr);
-                    if ($tr.hasClass('m-filtered-type')) {
-                        $tr.removeClass('m-filtered-type');
-                        if (!$tr.hasClass('m-filtered-tag')) {
-                            $tr.addClass('m-stripes');
-                        }
-                    } else {
-                        $tr.removeClass('m-stripes');
-                        $tr.addClass('m-filtered-type');
-                    }
+                if (!$button.hasClass('m-filtered')) {
 
-                });
+                }
+
+                if (!window.detachedType){
+                    window.detachedType = $([]);
+                }
+                window.detachedType.appendTo('.content__table');
+                window.detachedType = $('.content__table').find('.m-'+param).closest('.content__table-tr');
+                window.detachedType.detach();
             },
             listAirportSuggestions: function () {
                 var $input = $(this).parent().find('input'),
