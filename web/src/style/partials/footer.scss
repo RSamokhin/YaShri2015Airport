@@ -90,9 +90,8 @@
         }
         &.m-close {
             background-image: url(../img/icons/icon-close.png);
-            position: absolute;
-            top: 0;
-            right: 0;
+            position: fixed;
+            z-index: 99;
         }
     }
 }
