@@ -52,7 +52,19 @@ window.Handlers = {
                 var $button = $(this),
                     param = $button.data('filter-param');
                 $button.toggleClass('m-filtered');
-                $('.content__table').find('.m-'+param).closest('.content__table-tr').toggleClass('m-filtered-type');
+                $('.content__table').find('.m-'+param).closest('.content__table-tr').each(function (i, tr) {
+                    var $tr = $(tr);
+                    if ($tr.hasClass('m-filtered-type')) {
+                        $tr.removeClass('m-filtered-type');
+                        if (!$tr.hasClass('m-filtered-tag')) {
+                            $tr.addClass('m-stripes');
+                        }
+                    } else {
+                        $tr.removeClass('m-stripes');
+                        $tr.addClass('m-filtered-type');
+                    }
+
+                });
             },
             listAirportSuggestions: function () {
                 var $input = $(this).parent().find('input'),
@@ -172,6 +184,7 @@ window.Handlers = {
                                     {},
                                     {
                                         beforeSend: function () {
+                                            $(document.body).addClass('m-scrolled');
                                             $('.loader').removeClass('m-hidden');
                                             $('.content').show();
                                         },
@@ -192,7 +205,6 @@ window.Handlers = {
                         },
                         window.ajaxSetup.getAirportsParamsSearch('offset')
                     ));
-                    $(document.body).addClass('m-scrolled');
                     $container.addClass('m-hidden');
                 } else {
                     $('.header__search-box:not(.m-green)').first().trigger('click');
@@ -254,18 +266,31 @@ window.Handlers = {
                     $tags = $('.header__tags-container'),
                     $tbody = $('.content__table-body');
                     $this.remove();
-                $tbody.children('.m-filtered-tag').removeClass('m-filtered-tag');
+                $tbody.find('.m-filtered-tag').each(function (i, tr) {
+                    var $tr = $(tr);
+                    $tr.removeClass('m-filtered-tag');
+                    if (!$tr.hasClass('m-filtered-type')) {
+                        $tr.addClass('m-stripes');
+                    }
+                });
                 $tags.children().each(function (i, el) {
                     var val = $(el).text();
                     $tbody.find('.content__table-tr').each(function (i, tr) {
                         $tr = $(tr);
                         if (!~$tr.text().toLowerCase().indexOf(val)) {
                             $tr.addClass('m-filtered-tag');
+                            $tr.removeClass('m-stripes')
                         }
                     });
                 });
                 if (!$tags.children().length)
                     $('.content__filter.m-filter ').removeClass('m-filtered');
+            },
+            toggleAddTag: function () {
+                if(event.keyCode === 13){
+                    window.Handlers.click.addFilterTag();
+                }
+                return false;
             },
             addFilterTag: function () {
                 var $input = $('.content__filter-input'),

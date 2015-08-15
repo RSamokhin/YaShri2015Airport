@@ -5,7 +5,7 @@
     <div class="content__filter m-showDown m-right" data-bind-click="showPrev"></div>
     <div class="content__filter m-filter m-right" data-bind-click="filterResults"></div>
     <div class="content__filter-container m-hidden">
-        <input class="content__filter-input" placeholder="Your search"/>
+        <input class="content__filter-input" placeholder="Your search" onkeypress="window.Handlers.click.toggleAddTag()"/>
         <input readonly class="content__filter-button" data-bind-click="addFilterTag"/>
     </div>
     <div class="content__table-container">

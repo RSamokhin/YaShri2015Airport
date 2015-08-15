@@ -98,7 +98,7 @@
     <div class="content__filter m-showDown m-right" data-bind-click="showPrev"></div>
     <div class="content__filter m-filter m-right" data-bind-click="filterResults"></div>
     <div class="content__filter-container m-hidden">
-        <input class="content__filter-input" placeholder="Your search"/>
+        <input class="content__filter-input" placeholder="Your search" onkeypress="window.Handlers.click.toggleAddTag()"/>
         <input readonly class="content__filter-button" data-bind-click="addFilterTag"/>
     </div>
     <div class="content__table-container">
@@ -144,7 +144,7 @@
         </script>
         
         <script id="flightRow" type="text/x-jquery-tmpl">
-            <div class="content__table-tr" data-bind-click="showFlightInfo" data-flight="${flight}">
+            <div class="content__table-tr m-stripes" data-bind-click="showFlightInfo" data-flight="${flight}">
                <div class="content__table-td" data-bind-mouseenter="hoverTableColumn" data-bind-mouseleave="hoverLeaveTableColumn">
                     <div class="content__table-td-div">
                         <div class="m-icon m-${type}"></div>
